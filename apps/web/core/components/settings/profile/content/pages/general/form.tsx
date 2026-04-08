@@ -150,13 +150,32 @@ export const GeneralProfileSettingsForm = observer(function GeneralProfileSettin
       role: formData.role,
     };
 
-    const updateCurrentUserDetail = updateCurrentUser(userPayload).finally(() => setIsLoading(false));
-    const updateCurrentUserProfile = updateUserProfile(profilePayload).finally(() => setIsLoading(false));
+    const updateCurrentUserDetail = updateCurrentUser(userPayload);
+    const promises: Promise<IUser | TUserProfile | undefined>[] = [updateCurrentUserDetail];
+    if (profilePayload.role !== profile.role) {
+      const updateCurrentUserProfile = updateUserProfile(profilePayload);
+      promises.push(updateCurrentUserProfile);
+    }
 
-    const promises = [updateCurrentUserDetail, updateCurrentUserProfile];
-    const updateUserAndProfile = Promise.all(promises);
+    const updatePromise = Promise.allSettled(promises)
+      .then((results) => {
+        const rejectedResult = results.find((result) => result.status === "rejected") as
+          | PromiseRejectedResult
+          | undefined;
+        if (rejectedResult) {
+          throw rejectedResult.reason ?? new Error("Failed to update profile");
+        }
+        const values = results.map(
+          (result) => (result as PromiseFulfilledResult<IUser | TUserProfile | undefined>).value
+        );
+        if (values.some((v) => v === undefined)) {
+          throw new Error("Failed to update profile");
+        }
+        return values;
+      })
+      .finally(() => setIsLoading(false));
 
-    setPromiseToast(updateUserAndProfile, {
+    setPromiseToast(updatePromise, {
       loading: t("account_settings.profile.general.form.updating"),
       success: {
         title: t("success"),
@@ -167,11 +186,6 @@ export const GeneralProfileSettingsForm = observer(function GeneralProfileSettin
         message: () => t("account_settings.profile.general.form.update_error"),
       },
     });
-    updateUserAndProfile
-      .then(() => {
-        return;
-      })
-      .catch(() => {});
   };
 
   return (
