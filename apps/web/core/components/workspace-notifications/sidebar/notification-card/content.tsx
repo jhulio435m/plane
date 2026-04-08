@@ -181,7 +181,7 @@ export function NotificationContent({
   };
 
   const renderTriggerName = () => (
-    <span className="text-primary font-medium">
+    <span className="font-medium text-primary">
       {triggeredBy?.is_bot ? triggeredBy.first_name : triggeredBy?.display_name}{" "}
     </span>
   );
@@ -220,7 +220,7 @@ export function NotificationContent({
           {showConnector && <span className="text-tertiary">{t("notifications.connector_to")} </span>}
           <span className="text-primary font-medium">{renderValue()}</span>
           {notificationField === "comment" && renderCommentBox && (
-            <div className="scale-75 origin-left">
+            <div className="origin-left scale-75">
               <LiteTextEditor
                 editable={false}
                 id=""

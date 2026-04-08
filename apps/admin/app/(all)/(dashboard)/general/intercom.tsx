@@ -58,10 +58,10 @@ export const IntercomConfig = observer(function IntercomConfig(props: TIntercomC
   return (
     <>
       <div className="flex items-center gap-14">
-        <div className="grow flex items-center gap-4">
+        <div className="flex grow items-center gap-4">
           <div className="shrink-0">
-            <div className="flex items-center justify-center size-11 bg-layer-1 rounded-lg">
-              <MessageSquare className="size-5 text-tertiary p-0.5" />
+            <div className="flex size-11 items-center justify-center rounded-lg bg-layer-1">
+              <MessageSquare className="size-5 p-0.5 text-tertiary" />
             </div>
           </div>
 

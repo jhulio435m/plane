@@ -119,7 +119,7 @@ const InstanceAuthenticationPage = observer(function InstanceAuthenticationPage(
     >
       {formattedConfig ? (
         <div className="space-y-3">
-          <div className={cn("w-full flex items-center gap-14 rounded-sm")}>
+          <div className={cn("flex w-full items-center gap-14 rounded-sm")}>
             <div className="flex grow items-center gap-4">
               <div className="grow">
                 <div className="text-16 font-medium pb-1">{t("admin.allow_signup_title")}</div>

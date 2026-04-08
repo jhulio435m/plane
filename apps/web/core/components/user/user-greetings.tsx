@@ -55,7 +55,7 @@ export function UserGreetingsView(props: IUserGreetingsView) {
   return (
     <div className="flex flex-col items-center my-6">
       <h2 className="text-20 font-semibold text-center">
-        {salutation}, {user?.first_name} {user?.last_name}
+        {t("good")} {t(greeting)}, {user?.first_name} {user?.last_name}
       </h2>
       <h5 className="flex items-center gap-2 font-medium text-placeholder">
         <div>{greeting === "morning" ? "🌤️" : greeting === "afternoon" ? "🌥️" : "🌙️"}</div>

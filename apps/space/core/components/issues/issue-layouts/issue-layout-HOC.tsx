@@ -29,7 +29,7 @@ export const IssueLayoutHOC = observer(function IssueLayoutHOC(props: Props) {
 
   if (getIssueLoader() === "init-loader" || issueCount === undefined) {
     return (
-      <div className="relative size-full grid place-items-center">
+      <div className="relative grid size-full place-items-center">
         <LogoSpinner />
       </div>
     );

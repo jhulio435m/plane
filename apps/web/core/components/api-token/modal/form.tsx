@@ -181,7 +181,7 @@ export function CreateApiTokenForm(props: Props) {
                       customButton={
                         <div
                           className={cn(
-                            "h-7 flex items-center gap-2 rounded-sm border-[0.5px] border-strong px-2 py-0.5",
+                            "flex h-7 items-center gap-2 rounded-sm border-[0.5px] border-strong px-2 py-0.5",
                             {
                               "text-placeholder": neverExpires,
                             }
@@ -243,7 +243,7 @@ export function CreateApiTokenForm(props: Props) {
           </div>
         </div>
       </div>
-      <div className="px-5 py-4 flex items-center justify-between gap-2 border-t-[0.5px] border-subtle">
+      <div className="flex items-center justify-between gap-2 border-t-[0.5px] border-subtle px-5 py-4">
         <div className="flex cursor-pointer items-center gap-1.5" onClick={toggleNeverExpires}>
           <div className="flex cursor-pointer items-center justify-center">
             <ToggleSwitch value={neverExpires} onChange={() => {}} size="sm" />

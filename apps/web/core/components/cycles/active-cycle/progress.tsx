@@ -50,10 +50,10 @@ export const ActiveCycleProgress = observer(function ActiveCycleProgress(props: 
   const resolvedPath = resolvedTheme === "light" ? lightProgressAsset : darkProgressAsset;
 
   return cycle && cycle.hasOwnProperty("started_issues") ? (
-    <div className="flex flex-col min-h-[17rem] gap-5 py-4 px-3.5 bg-surface-1 border border-subtle rounded-lg">
+    <div className="flex min-h-[17rem] flex-col gap-5 rounded-lg border border-subtle bg-surface-1 px-3.5 py-4">
       <div className="flex flex-col gap-3">
         <div className="flex items-center justify-between gap-4">
-          <h3 className="text-14 text-tertiary font-semibold">{t("project_cycles.active_cycle.progress")}</h3>
+          <h3 className="text-14 font-semibold text-tertiary">{t("project_cycles.active_cycle.progress")}</h3>
           {cycle.total_issues > 0 && (
             <span className="flex gap-1 text-13 text-placeholder font-medium whitespace-nowrap rounded-xs px-3 py-1 ">
               {`${cycle.completed_issues + cycle.cancelled_issues}/${cycle.total_issues - cycle.cancelled_issues} ${t("work_items_closed")}`}
@@ -70,7 +70,7 @@ export const ActiveCycleProgress = observer(function ActiveCycleProgress(props: 
               {groupedIssues[group] > 0 && (
                 <div key={index}>
                   <div
-                    className="flex items-center justify-between gap-2 text-13 cursor-pointer"
+                    className="flex cursor-pointer items-center justify-between gap-2 text-13"
                     onClick={() => {
                       handleFiltersUpdate([{ property: "state_group", operator: "in", value: [group] }]);
                     }}
@@ -101,13 +101,13 @@ export const ActiveCycleProgress = observer(function ActiveCycleProgress(props: 
           )}
         </div>
       ) : (
-        <div className="flex items-center justify-center h-full w-full">
+        <div className="flex h-full w-full items-center justify-center">
           <SimpleEmptyState title={t("active_cycle.empty_state.progress.title")} assetPath={resolvedPath} />
         </div>
       )}
     </div>
   ) : (
-    <Loader className="flex flex-col min-h-[17rem] gap-5 bg-surface-1 border border-subtle rounded-lg">
+    <Loader className="flex min-h-[17rem] flex-col gap-5 rounded-lg border border-subtle bg-surface-1">
       <Loader.Item width="100%" height="100%" />
     </Loader>
   );

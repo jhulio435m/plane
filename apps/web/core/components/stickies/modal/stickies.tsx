@@ -32,9 +32,9 @@ export const Stickies = observer(function Stickies(props: TProps) {
   const { stickyOperations } = useStickyOperations({ workspaceSlug: workspaceSlug?.toString() });
 
   return (
-    <div className="p-6 pb-0 min-h-[620px]">
+    <div className="min-h-[620px] p-6 pb-0">
       {/* header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="mb-6 flex items-center justify-between">
         {/* Title */}
         <div className="text-secondary flex items-center gap-2">
           <RecentStickyIcon className="size-5 rotate-90 flex-shrink-0" />
@@ -48,14 +48,14 @@ export const Stickies = observer(function Stickies(props: TProps) {
               toggleShowNewSticky(true);
               stickyOperations.create();
             }}
-            className="flex gap-1 text-13 font-medium text-accent-primary my-auto"
+            className="my-auto flex gap-1 text-13 font-medium text-accent-primary"
             disabled={creatingSticky}
           >
             <PlusIcon className="size-4 my-auto" /> <span>{t("stickies.add")}</span>
             {creatingSticky && (
-              <div className="flex items-center justify-center ml-2">
+              <div className="ml-2 flex items-center justify-center">
                 <div
-                  className={`w-4 h-4 border-2 border-t-transparent rounded-full animate-spin border-accent-strong`}
+                  className={`h-4 w-4 animate-spin rounded-full border-2 border-accent-strong border-t-transparent`}
                   role="status"
                   aria-label="loading"
                 />
@@ -66,9 +66,9 @@ export const Stickies = observer(function Stickies(props: TProps) {
             <button
               type="button"
               onClick={handleClose}
-              className="flex-shrink-0 grid place-items-center text-tertiary hover:text-primary hover:bg-layer-1 rounded-sm p-1 transition-colors my-auto"
+              className="my-auto grid flex-shrink-0 place-items-center rounded-sm p-1 text-tertiary transition-colors hover:bg-layer-1 hover:text-primary"
             >
-              <CloseIcon className="text-placeholder size-4" />
+              <CloseIcon className="size-4 text-placeholder" />
             </button>
           )}
         </div>

@@ -84,11 +84,11 @@ export const PageVersionsMainContent = observer(function PageVersionsMainContent
   const VersionEditor = editorComponent;
 
   return (
-    <div className="flex-grow flex flex-col overflow-hidden">
+    <div className="flex flex-grow flex-col overflow-hidden">
       {versionDetailsError ? (
-        <div className="flex-grow grid place-items-center">
+        <div className="grid flex-grow place-items-center">
           <div className="flex flex-col items-center gap-4 text-center">
-            <span className="flex-shrink-0 grid place-items-center size-11 text-tertiary">
+            <span className="grid size-11 flex-shrink-0 place-items-center text-tertiary">
               <TriangleAlert className="size-10" />
             </span>
             <div>
@@ -102,7 +102,7 @@ export const PageVersionsMainContent = observer(function PageVersionsMainContent
         </div>
       ) : (
         <>
-          <div className="min-h-14 py-3 px-5 border-b border-subtle flex items-center justify-between gap-2">
+          <div className="flex min-h-14 items-center justify-between gap-2 border-b border-subtle px-5 py-3">
             <div className="flex items-center gap-4">
               <h6 className="text-14 font-medium">
                 {versionDetails
@@ -120,7 +120,7 @@ export const PageVersionsMainContent = observer(function PageVersionsMainContent
               </Button>
             )}
           </div>
-          <div className="pt-8 h-full overflow-y-scroll vertical-scrollbar scrollbar-sm">
+          <div className="vertical-scrollbar scrollbar-sm h-full overflow-y-scroll pt-8">
             <VersionEditor activeVersion={activeVersion} storeType={storeType} versionDetails={versionDetails} />
           </div>
         </>

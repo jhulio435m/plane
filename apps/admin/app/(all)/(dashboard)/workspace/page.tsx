@@ -85,7 +85,7 @@ const WorkspaceManagementPage = observer(function WorkspaceManagementPage(_props
     >
       <div className="space-y-3">
         {formattedConfig ? (
-          <div className={cn("w-full flex items-center gap-14 rounded-sm")}>
+          <div className={cn("flex w-full items-center gap-14 rounded-sm")}>
             <div className="flex grow items-center gap-4">
               <div className="grow">
                 <div className="text-16 font-medium pb-1">{t("admin.prevent_workspace_creation_title")}</div>
@@ -118,12 +118,12 @@ const WorkspaceManagementPage = observer(function WorkspaceManagementPage(_props
         )}
         {workspaceLoader !== "init-loader" ? (
           <>
-            <div className="pt-6 flex items-center justify-between gap-2">
+            <div className="flex items-center justify-between gap-2 pt-6">
               <div className="flex flex-col items-start gap-x-2">
                 <div className="flex items-center gap-2 text-16 font-medium">
                   {t("admin.all_workspaces_title")} <span className="text-tertiary">• {workspaceIds.length}</span>
                   {workspaceLoader && ["mutation", "pagination"].includes(workspaceLoader) && (
-                    <LoaderIcon className="w-4 h-4 animate-spin" />
+                    <LoaderIcon className="h-4 w-4 animate-spin" />
                   )}
                 </div>
                 <div className={cn("font-regular leading-5 text-tertiary text-11")}>

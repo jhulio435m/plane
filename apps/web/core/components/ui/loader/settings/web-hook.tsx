@@ -20,8 +20,8 @@ export function WebhookSettingsLoader() {
           <div className="border-b border-subtle">
             <div>
               <span className="flex items-center justify-between gap-4 px-3.5 py-[18px]">
-                <span className="h-5 w-36 bg-layer-1 rounded-sm" />
-                <span className="h-6 w-12 bg-layer-1 rounded-sm" />
+                <span className="h-5 w-36 rounded-sm bg-layer-1" />
+                <span className="h-6 w-12 rounded-sm bg-layer-1" />
               </span>
             </div>
           </div>

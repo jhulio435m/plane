@@ -84,10 +84,10 @@ export const DeleteWorkspaceForm = observer(function DeleteWorkspaceForm(props: 
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 p-6">
-      <div className="flex flex-col sm:flex-row items-center sm:items-start gap-4">
+      <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-start">
         <span
           className={cn(
-            "shrink-0 grid place-items-center rounded-full size-12 sm:size-10 bg-danger-subtle text-danger-primary"
+            "grid size-12 shrink-0 place-items-center rounded-full bg-danger-subtle text-danger-primary sm:size-10"
           )}
         >
           <AlertTriangle className="size-5 text-danger-primary" aria-hidden="true" />
@@ -124,7 +124,7 @@ export const DeleteWorkspaceForm = observer(function DeleteWorkspaceForm(props: 
             />
           </div>
 
-          <div className="text-secondary mt-4">
+          <div className="mt-4 text-secondary">
             <p className="text-body-xs-regular">
               {t("workspace_settings.settings.general.delete_modal.final_confirmation_prefix")}{" "}
               <span className="text-body-xs-medium text-primary">

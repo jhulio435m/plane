@@ -283,7 +283,7 @@ export function ExportPageModal(props: Props) {
             )}
           </div>
         </div>
-        <div className="px-5 py-4 flex items-center justify-end gap-2 border-t-[0.5px] border-subtle">
+        <div className="flex items-center justify-end gap-2 border-t-[0.5px] border-subtle px-5 py-4">
           <Button variant="secondary" size="lg" onClick={handleClose}>
             {t("pages_modals.export.cancel")}
           </Button>

@@ -29,7 +29,7 @@ export const IssueBlockLabels = observer(function IssueBlockLabels({ labelIds, s
     return (
       <Tooltip position="top" tooltipHeading={t("labels")} tooltipContent={t("none")}>
         <div
-          className={`flex h-full items-center justify-center gap-2 rounded-sm px-2.5 py-1 text-11 border-[0.5px] border-strong`}
+          className={`flex h-full items-center justify-center gap-2 rounded-sm border-[0.5px] border-strong px-2.5 py-1 text-11`}
         >
           <LabelPropertyIcon className="h-3.5 w-3.5" strokeWidth={2} />
           {shouldShowLabel && <span>{t("no_labels")}</span>}
@@ -45,7 +45,7 @@ export const IssueBlockLabels = observer(function IssueBlockLabels({ labelIds, s
             <Tooltip key={label.id} position="top" tooltipHeading={t("labels")} tooltipContent={label?.name ?? ""}>
               <div
                 key={label?.id}
-                className={`flex overflow-hidden h-full max-w-full flex-shrink-0 items-center rounded-sm border-[0.5px] border-strong px-2.5 py-1 text-11`}
+                className={`flex h-full max-w-full flex-shrink-0 items-center overflow-hidden rounded-sm border-[0.5px] border-strong px-2.5 py-1 text-11`}
               >
                 <div className="flex max-w-full items-center gap-1.5 overflow-hidden text-secondary">
                   <span
@@ -62,8 +62,7 @@ export const IssueBlockLabels = observer(function IssueBlockLabels({ labelIds, s
         </>
       ) : (
         <div
-          className={`flex h-full flex-shrink-0 items-center rounded-sm border-[0.5px] border-strong px-2.5 py-1 text-11 cursor-not-allowed"
-            `}
+          className={`cursor-not-allowed" flex h-full flex-shrink-0 items-center rounded-sm border-[0.5px] border-strong px-2.5 py-1 text-11`}
         >
           <Tooltip position="top" tooltipHeading={t("labels")} tooltipContent={labelsString}>
             <div className="flex h-full items-center gap-1.5 text-secondary">

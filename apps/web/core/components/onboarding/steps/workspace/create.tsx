@@ -135,7 +135,7 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
       <div className="flex flex-col gap-8">
         <div className="flex flex-col gap-2">
           <label
-            className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
+            className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
             htmlFor="name"
           >
             {t("workspace_creation.form.name.label")}
@@ -168,7 +168,7 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
                   placeholder={t("onboarding.workspace.form.name.placeholder")}
                   ref={ref}
                   className={cn(
-                    "w-full px-3 py-2 text-secondary border border-strong rounded-md bg-surface-1 focus:outline-none focus:ring-2 focus:ring-accent-strong placeholder:text-placeholder focus:border-transparent transition-all duration-200",
+                    "w-full rounded-md border border-strong bg-surface-1 px-3 py-2 text-secondary transition-all duration-200 placeholder:text-placeholder focus:border-transparent focus:ring-2 focus:ring-accent-strong focus:outline-none",
                     {
                       "border-strong": !errors.name,
                       "border-danger-strong": errors.name,
@@ -184,7 +184,7 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
         </div>
         <div className="flex flex-col gap-2">
           <label
-            className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
+            className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
             htmlFor="slug"
           >
             {t("workspace_creation.form.url.label")}
@@ -202,14 +202,14 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
             render={({ field: { value, ref, onChange } }) => (
               <div
                 className={cn(
-                  "flex items-center w-full px-3 py-2 text-secondary border border-strong rounded-md bg-surface-1 focus:outline-none focus:ring-2 focus:ring-accent-strong focus:border-transparent transition-all duration-200",
+                  "flex w-full items-center rounded-md border border-strong bg-surface-1 px-3 py-2 text-secondary transition-all duration-200 focus:border-transparent focus:ring-2 focus:ring-accent-strong focus:outline-none",
                   {
                     "border-strong": !errors.name,
                     "border-danger-strong": errors.name,
                   }
                 )}
               >
-                <span className={cn("pr-0 text-secondary rounded-md whitespace-nowrap")}>
+                <span className={cn("rounded-md pr-0 whitespace-nowrap text-secondary")}>
                   {window && window.location.host}/
                 </span>
                 <input
@@ -226,7 +226,7 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
                   ref={ref}
                   placeholder={t("workspace_creation.form.url.placeholder")}
                   className={cn(
-                    "w-full px-3 py-0 pl-0 text-secondary border-none ring-none outline-none rounded-md bg-surface-1 placeholder:text-placeholder"
+                    "ring-none w-full rounded-md border-none bg-surface-1 px-3 py-0 pl-0 text-secondary outline-none placeholder:text-placeholder"
                   )}
                 />
               </div>
@@ -245,7 +245,7 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
         </div>
         <div className="flex flex-col gap-2">
           <label
-            className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
+            className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
             htmlFor="organization_size"
           >
             {t("workspace_creation.form.organization_size.label")}
@@ -267,10 +267,10 @@ export const WorkspaceCreateStep = observer(function WorkspaceCreateStep({
                           e.stopPropagation();
                           onChange(size);
                         }}
-                        className={`text-13 px-3 py-2 rounded-lg border transition-all duration-200 flex gap-1 items-center justify-between ${
+                        className={`flex items-center justify-between gap-1 rounded-lg border px-3 py-2 text-13 transition-all duration-200 ${
                           isSelected
                             ? "border-subtle bg-layer-1 text-secondary"
-                            : "border-subtle hover:border-strong text-tertiary"
+                            : "border-subtle text-tertiary hover:border-strong"
                         }`}
                       >
                         <CircleCheck className={cn("size-4 text-placeholder", isSelected && "text-secondary")} />

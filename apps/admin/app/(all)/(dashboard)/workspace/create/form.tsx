@@ -199,7 +199,7 @@ export function WorkspaceCreateForm() {
           </div>
         </div>
       </div>
-      <div className="flex max-w-4xl items-center py-1 gap-4">
+      <div className="flex max-w-4xl items-center gap-4 py-1">
         <Button
           variant="primary"
           size="lg"

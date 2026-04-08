@@ -22,9 +22,9 @@ export function InstanceFailureView() {
   };
 
   return (
-    <div className="relative h-screen overflow-x-hidden overflow-y-auto container px-5 mx-auto flex justify-center items-center">
-      <div className="w-auto max-w-2xl relative space-y-8 py-10">
-        <div className="relative flex flex-col justify-center items-center space-y-4">
+    <div className="relative container mx-auto flex h-screen items-center justify-center overflow-x-hidden overflow-y-auto px-5">
+      <div className="relative w-auto max-w-2xl space-y-8 py-10">
+        <div className="relative flex flex-col items-center justify-center space-y-4">
           <img src={instanceImage} alt="Plane instance failure image" />
           <h3 className="font-medium text-20 text-on-color ">{t("admin.instance_failure_title")}</h3>
           <p className="font-medium text-14 text-center">
