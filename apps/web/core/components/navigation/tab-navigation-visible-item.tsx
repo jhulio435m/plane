@@ -62,8 +62,8 @@ export function TabNavigationVisibleItem({
                 }}
                 className="flex cursor-pointer items-center gap-2 text-secondary transition-colors"
               >
-                <SetAsDefaultIcon className="size-3 shrink-0" />
-                <span className="text-11">{isDefault ? "Clear default" : "Set as default"}</span>
+                <SetAsDefaultIcon className="shrink-0 size-3" />
+                <span className="text-11">{isDefault ? t("common.clear_default") : t("common.set_as_default")}</span>
               </ContextMenu.Item>
               <ContextMenu.Item
                 onClick={(e) => {
@@ -72,8 +72,8 @@ export function TabNavigationVisibleItem({
                 }}
                 className="flex cursor-pointer items-center gap-2 text-secondary transition-colors"
               >
-                <PinOff className="size-3 shrink-0" />
-                <span className="text-11">Hide in more menu</span>
+                <PinOff className="shrink-0 size-3" />
+                <span className="text-11">{t("common.hide_in_more_menu")}</span>
               </ContextMenu.Item>
             </ContextMenu.Content>
           </ContextMenu.Portal>

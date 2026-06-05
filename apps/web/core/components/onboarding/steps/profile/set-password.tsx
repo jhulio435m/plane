@@ -5,6 +5,8 @@
  */
 
 import React, { useState, useCallback, useMemo } from "react";
+// plane imports
+import { useTranslation } from "@plane/i18n";
 import { LockIcon, ChevronDownIcon } from "@plane/propel/icons";
 import { PasswordInput, PasswordStrengthIndicator } from "@plane/ui";
 import { cn } from "@plane/utils";
@@ -26,6 +28,8 @@ export function SetPasswordRoot({ onPasswordChange, onConfirmPasswordChange, dis
     password: "",
     confirmPassword: "",
   });
+  // i18n
+  const { t } = useTranslation();
 
   const handleToggleExpand = useCallback(() => {
     if (disabled) return;
@@ -76,10 +80,10 @@ export function SetPasswordRoot({ onPasswordChange, onConfirmPasswordChange, dis
   );
 
   return (
-    <div className={`flex flex-col overflow-hidden rounded-lg bg-surface-2 transition-all duration-300 ease-in-out`}>
+    <div className={`flex flex-col rounded-lg overflow-hidden transition-all duration-300 ease-in-out bg-surface-2`}>
       <div
         className={cn(
-          "flex items-center justify-between px-3 py-2 text-13 transition-colors duration-200",
+          "flex items-center justify-between transition-colors duration-200 px-3 py-2 text-13",
           disabled ? "cursor-not-allowed opacity-50" : "cursor-pointer",
           isExpanded && "pb-1"
         )}
@@ -87,8 +91,8 @@ export function SetPasswordRoot({ onPasswordChange, onConfirmPasswordChange, dis
       >
         <div className="flex items-center gap-1 text-tertiary">
           <LockIcon className="size-3" />
-          <span className="font-medium">Set a password</span>
-          <span>{`(Optional)`}</span>
+          <span className="font-medium">{t("onboarding.profile.form.password.title")}</span>
+          <span>{t("onboarding.profile.form.password.optional")}</span>
         </div>
         <div className="flex items-center gap-2 text-placeholder">
           <ChevronDownIcon className={chevronIconClasses} />
@@ -97,12 +101,12 @@ export function SetPasswordRoot({ onPasswordChange, onConfirmPasswordChange, dis
 
       <div className={expandedContentClasses}>
         {/* Password input */}
-        <div className="flex transform flex-col gap-2 pt-1 transition-all duration-300 ease-in-out">
+        <div className="flex flex-col gap-2 transform transition-all duration-300 ease-in-out pt-1">
           <PasswordInput
             id="password"
             value={passwordState.password}
             onChange={(value) => handlePasswordChange("password", value)}
-            placeholder="Set a password"
+            placeholder={t("onboarding.profile.form.password.title")}
             className="transition-all duration-200"
           />
           {passwordState.password.length > 0 && <PasswordStrengthIndicator password={passwordState.password} />}
@@ -110,21 +114,25 @@ export function SetPasswordRoot({ onPasswordChange, onConfirmPasswordChange, dis
 
         <div className="flex flex-col gap-2 pb-2">
           {/* Confirm password label */}
-          <div className="transform text-13 font-medium text-tertiary transition-all delay-75 duration-300 ease-in-out">
-            Confirm password
+          <div className="text-tertiary font-medium transform transition-all duration-300 ease-in-out delay-75 text-13">
+            {t("onboarding.profile.form.password.confirm_title")}
           </div>
 
           {/* Confirm password input */}
-          <div className="transform transition-all delay-100 duration-300 ease-in-out">
+          <div className="transform transition-all duration-300 ease-in-out delay-100">
             <PasswordInput
               id="confirm-password"
               value={passwordState.confirmPassword}
               onChange={(value) => handlePasswordChange("confirmPassword", value)}
-              placeholder="Confirm password"
+              placeholder={t("onboarding.profile.form.password.confirm_title")}
               className="transition-all duration-200"
             />
-            {hasPasswordMismatch && <p className="mt-1 text-11 text-danger-primary">Passwords do not match</p>}
-            {isPasswordValid && <p className="mt-1 text-11 text-success-primary">✓ Passwords match</p>}
+            {hasPasswordMismatch && (
+              <p className="text-11 text-danger-primary mt-1">{t("onboarding.profile.form.password.mismatch")}</p>
+            )}
+            {isPasswordValid && (
+              <p className="text-11 text-success-primary mt-1">{t("onboarding.profile.form.password.match")}</p>
+            )}
           </div>
         </div>
       </div>

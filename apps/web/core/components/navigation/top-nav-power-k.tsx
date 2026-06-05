@@ -8,6 +8,7 @@ import { useState, useMemo, useCallback, useEffect } from "react";
 import { Command } from "cmdk";
 import { observer } from "mobx-react";
 import { useParams } from "next/navigation";
+import { useTranslation } from "@plane/i18n";
 // hooks
 import { CloseIcon, SearchIcon } from "@plane/propel/icons";
 import { cn } from "@plane/utils";
@@ -36,6 +37,7 @@ export const TopNavPowerK = observer(() => {
   // store hooks
   const { activeContext, setActivePage, activePage, setTopNavInputRef } = usePowerK();
   const { data: currentUser } = useUser();
+  const { t } = useTranslation();
 
   const handleOnClose = useCallback(() => {
     setSearchTerm("");
@@ -209,13 +211,13 @@ export const TopNavPowerK = observer(() => {
   return (
     <div ref={containerRef} className="relative">
       <div
-        className={cn("relative z-30 flex w-[364px] items-center transition-all duration-300 ease-in-out", {
+        className={cn("relative w-[364px] flex items-center transition-all duration-300 ease-in-out z-30", {
           "w-[554px]": isOpen,
         })}
       >
         <div
           className={cn(
-            "flex h-7 w-full items-center rounded-lg border border-subtle-1 bg-layer-2 p-2 transition-colors duration-200",
+            "flex items-center w-full h-7 p-2 rounded-lg bg-layer-2 border border-subtle-1 transition-colors duration-200",
             {
               "bg-layer-1": isOpen,
             }
@@ -223,7 +225,7 @@ export const TopNavPowerK = observer(() => {
           onClick={() => inputRef.current?.focus()}
           role="button"
         >
-          <SearchIcon className="mr-2 size-3.5 shrink-0 text-placeholder" />
+          <SearchIcon className="shrink-0 size-3.5 text-placeholder mr-2" />
           <input
             ref={inputRef}
             type="text"
@@ -235,11 +237,11 @@ export const TopNavPowerK = observer(() => {
             onMouseDown={handleMouseDown}
             onFocus={handleFocus}
             onKeyDown={handleKeyDown}
-            placeholder="Search commands..."
-            className="placeholder-text-placeholder min-w-0 flex-1 bg-transparent text-13 text-primary outline-none"
+            placeholder={t("power_k.page_placeholders.default")}
+            className="flex-1 bg-transparent text-13 text-primary placeholder-text-placeholder outline-none min-w-0"
           />
           {searchTerm && (
-            <button type="button" onClick={handleClear} className="ml-2 shrink-0">
+            <button type="button" onClick={handleClear} className="shrink-0 ml-2">
               <CloseIcon className="size-3.5 text-placeholder hover:text-primary" />
             </button>
           )}
@@ -247,10 +249,10 @@ export const TopNavPowerK = observer(() => {
       </div>
       <div
         className={cn(
-          "shadow-lg absolute -top-[6px] left-1/2 z-20 flex -translate-x-1/2 flex-col overflow-hidden rounded-md border border-subtle bg-surface-1 px-0 pt-10 transition-all duration-300 ease-in-out",
+          "absolute -top-[6px] left-1/2 -translate-x-1/2  bg-surface-1 border border-subtle rounded-md shadow-lg overflow-hidden z-20  transition-all duration-300 ease-in-out flex flex-col px-0 pt-10",
           {
-            "max-h-[80vh] w-[574px] opacity-100": isOpen,
-            "h-0 w-0 opacity-0": !isOpen,
+            "opacity-100 w-[574px] max-h-[80vh]": isOpen,
+            "opacity-0 w-0 h-0": !isOpen,
           }
         )}
       >
@@ -262,14 +264,14 @@ export const TopNavPowerK = observer(() => {
               return 0;
             }}
             shouldFilter={searchTerm.length > 0}
-            className="flex h-full w-full flex-col"
+            className="w-full flex flex-col h-full"
           >
             <Command.Input value={searchTerm} hidden />
             {/* We can skip the header input since we have the main input above,
                      but we might need the context indicator if we want that feature.
                      For now, let's just render the list. */}
 
-            <Command.List className="vertical-scrollbar scrollbar-sm max-h-[60vh] overflow-y-auto px-2 pb-4 outline-none">
+            <Command.List className="vertical-scrollbar scrollbar-sm max-h-[60vh] overflow-y-auto outline-none px-2 pb-4">
               <ProjectsAppPowerKCommandsList
                 activePage={activePage}
                 context={context}

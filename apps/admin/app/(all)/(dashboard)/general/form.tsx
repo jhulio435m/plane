@@ -7,6 +7,7 @@
 import { observer } from "mobx-react";
 import { Controller, useForm } from "react-hook-form";
 import { Telescope } from "lucide-react";
+import { useTranslation } from "@plane/i18n";
 // plane imports
 import { Button } from "@plane/propel/button";
 import { TOAST_TYPE, setToast } from "@plane/propel/toast";
@@ -25,6 +26,7 @@ export interface IGeneralConfigurationForm {
 export const GeneralConfigurationForm = observer(function GeneralConfigurationForm(props: IGeneralConfigurationForm) {
   const { instance, instanceAdmins } = props;
   // hooks
+  const { t } = useTranslation();
   const { updateInstanceInfo } = useInstance();
 
   // form data
@@ -46,8 +48,8 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
       .then(() =>
         setToast({
           type: TOAST_TYPE.SUCCESS,
-          title: "Success",
-          message: "Settings updated successfully",
+          title: t("common.success"),
+          message: t("admin.settings_update_success"),
         })
       )
       .catch((err) => console.error(err));
@@ -56,27 +58,27 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
   return (
     <div className="space-y-8">
       <div className="space-y-4">
-        <div className="text-16 font-medium text-primary">Instance details</div>
+        <div className="text-16 font-medium text-primary">{t("admin.instance_details")}</div>
         <div className="grid-col grid w-full grid-cols-1 items-center justify-between gap-8 md:grid-cols-2 lg:grid-cols-3">
           <ControllerInput
             key="instance_name"
             name="instance_name"
             control={control}
             type="text"
-            label="Name of instance"
-            placeholder="Instance name"
+            label={t("admin.instance_name_label")}
+            placeholder={t("admin.instance_name_placeholder")}
             error={Boolean(errors.instance_name)}
             required
           />
 
           <div className="flex flex-col gap-1">
-            <h4 className="text-13 text-tertiary">Email</h4>
+            <h4 className="text-13 text-tertiary">{t("email")}</h4>
             <Input
               id="email"
               name="email"
               type="email"
               value={instanceAdmins[0]?.user_detail?.email ?? ""}
-              placeholder="Admin email"
+              placeholder={t("admin.admin_email_placeholder")}
               className="w-full cursor-not-allowed !text-placeholder"
               autoComplete="on"
               disabled
@@ -84,7 +86,7 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
           </div>
 
           <div className="flex flex-col gap-1">
-            <h4 className="text-13 text-tertiary">Instance ID</h4>
+            <h4 className="text-13 text-tertiary">{t("admin.instance_id")}</h4>
             <Input
               id="instance_id"
               name="instance_id"
@@ -107,17 +109,16 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
               </div>
             </div>
             <div className="grow">
-              <div className="text-13 leading-5 font-medium text-primary">Let Plane collect anonymous usage data</div>
-              <div className="text-11 leading-5 font-regular text-tertiary">
-                No PII is collected.This anonymized data is used to understand how you use Plane and build new features
-                in line with{" "}
+              <div className="text-13 font-medium text-primary leading-5">{t("admin.telemetry_title")}</div>
+              <div className="text-11 font-regular text-tertiary leading-5">
+                {t("admin.telemetry_description")}{" "}
                 <a
                   href="https://developers.plane.so/self-hosting/telemetry"
                   target="_blank"
                   className="text-accent-primary hover:underline"
                   rel="noreferrer"
                 >
-                  our Telemetry Policy.
+                  {t("admin.telemetry_policy_link")}
                 </a>
               </div>
             </div>
@@ -143,7 +144,7 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
           }}
           loading={isSubmitting}
         >
-          {isSubmitting ? "Saving" : "Save changes"}
+          {isSubmitting ? t("saving") : t("save_changes")}
         </Button>
       </div>
     </div>

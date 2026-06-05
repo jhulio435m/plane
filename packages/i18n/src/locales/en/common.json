@@ -211,6 +211,8 @@
   "drag_to_rearrange": "Drag to rearrange",
   "congrats": "Congrats!",
   "open_project": "Open project",
+  "more": "more",
+  "hide": "hide",
   "issues": "Work items",
   "cycles": "Cycles",
   "modules": "Modules",
@@ -448,6 +450,12 @@
     "completed_at": "Completed at",
     "layout": "Layout",
     "filters": "Filters",
+    "filter_options_selected": "{count} option(s) selected",
+    "filter_operator": {
+      "is": "is",
+      "is_any_of": "is any of",
+      "between": "between"
+    },
     "display": "Display",
     "load_more": "Load more",
     "activity": "Activity",

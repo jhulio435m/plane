@@ -57,19 +57,26 @@ enum EProfileSetupSteps {
   USER_PERSONALIZATION = "USER_PERSONALIZATION",
 }
 
-const USER_ROLE = ["Individual contributor", "Senior Leader", "Manager", "Executive", "Freelancer", "Student"];
+const USER_ROLE: { key: string; label: string }[] = [
+  { key: "individual_contributor", label: "Individual contributor" },
+  { key: "senior_leader", label: "Senior Leader" },
+  { key: "manager", label: "Manager" },
+  { key: "executive", label: "Executive" },
+  { key: "freelancer", label: "Freelancer" },
+  { key: "student", label: "Student" },
+];
 
-const USER_DOMAIN = [
-  "Engineering",
-  "Product",
-  "Marketing",
-  "Sales",
-  "Operations",
-  "Legal",
-  "Finance",
-  "Human Resources",
-  "Project",
-  "Other",
+const USER_DOMAIN: { key: string; label: string }[] = [
+  { key: "engineering", label: "Engineering" },
+  { key: "product", label: "Product" },
+  { key: "marketing", label: "Marketing" },
+  { key: "sales", label: "Sales" },
+  { key: "operations", label: "Operations" },
+  { key: "legal", label: "Legal" },
+  { key: "finance", label: "Finance" },
+  { key: "human_resources", label: "Human Resources" },
+  { key: "project", label: "Project" },
+  { key: "other", label: "Other" },
 ];
 
 const authService = new AuthService();
@@ -137,8 +144,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
       ]);
       setToast({
         type: TOAST_TYPE.SUCCESS,
-        title: "Success",
-        message: "Profile setup completed!",
+        title: t("success"),
+        message: t("onboarding.profile.form.setup_success"),
       });
       // For Invited Users, they will skip all other steps and finish onboarding.
       if (totalSteps <= 2) {
@@ -147,8 +154,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
     } catch {
       setToast({
         type: TOAST_TYPE.ERROR,
-        title: "Error",
-        message: "Profile setup failed. Please try again!",
+        title: t("error"),
+        message: t("onboarding.profile.form.setup_error"),
       });
     }
   };
@@ -172,8 +179,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
     } catch {
       setToast({
         type: TOAST_TYPE.ERROR,
-        title: "Error",
-        message: "User details update failed. Please try again!",
+        title: t("error"),
+        message: t("onboarding.profile.form.update_error"),
       });
     }
   };
@@ -190,8 +197,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
       ]);
       setToast({
         type: TOAST_TYPE.SUCCESS,
-        title: "Success",
-        message: "Profile setup completed!",
+        title: t("success"),
+        message: t("onboarding.profile.form.setup_success"),
       });
       // For Invited Users, they will skip all other steps and finish onboarding.
       if (totalSteps <= 2) {
@@ -200,8 +207,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
     } catch {
       setToast({
         type: TOAST_TYPE.ERROR,
-        title: "Error",
-        message: "Profile setup failed. Please try again!",
+        title: t("error"),
+        message: t("onboarding.profile.form.setup_error"),
       });
     }
   };
@@ -245,8 +252,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
 
   return (
     <div className="flex h-full w-full">
-      <div className="mt-6 flex w-full flex-col items-center justify-center p-8">
-        <form onSubmit={handleSubmit(onSubmit)} className="mx-auto mt-2 w-full space-y-4 sm:w-96">
+      <div className="flex flex-col w-full items-center justify-center p-8 mt-6">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full mx-auto mt-2 space-y-4 sm:w-96">
           {profileSetupStep !== EProfileSetupSteps.USER_PERSONALIZATION && (
             <>
               <Controller
@@ -265,24 +272,24 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                   />
                 )}
               />
-              <div className="flex items-center justify-center space-y-1">
+              <div className="space-y-1 flex items-center justify-center">
                 <button type="button" onClick={() => setIsImageUploadModalOpen(true)}>
                   {!userAvatar || userAvatar === "" ? (
                     <div className="flex flex-col items-center justify-between">
                       <div className="relative h-14 w-14 overflow-hidden">
-                        <div className="absolute top-0 left-0 flex h-full w-full items-center justify-center rounded-full bg-accent-primary text-24 font-medium text-on-color uppercase">
+                        <div className="absolute left-0 top-0 flex items-center justify-center h-full w-full rounded-full text-on-color text-24 font-medium bg-accent-primary uppercase">
                           {watch("first_name")[0] ?? "R"}
                         </div>
                       </div>
                       <div className="pt-1 text-13 font-medium text-accent-secondary hover:text-tertiary">
-                        Choose image
+                        {t("onboarding.profile.avatar.choose")}
                       </div>
                     </div>
                   ) : (
                     <div className="relative mr-3 h-16 w-16 overflow-hidden">
                       <img
                         src={getFileURL(userAvatar ?? "")}
-                        className="absolute top-0 left-0 h-full w-full rounded-full object-cover"
+                        className="absolute left-0 top-0 h-full w-full rounded-full object-cover"
                         onClick={() => setIsImageUploadModalOpen(true)}
                         alt={user?.display_name}
                       />
@@ -290,23 +297,23 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                   )}
                 </button>
               </div>
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
                   <label
-                    className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
+                    className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
                     htmlFor="first_name"
                   >
-                    First name
+                    {t("onboarding.profile.form.first_name.label")}
                   </label>
                   <Controller
                     control={control}
                     name="first_name"
                     rules={{
-                      required: "First name is required",
+                      required: t("onboarding.profile.form.first_name.required"),
                       validate: validatePersonName,
                       maxLength: {
                         value: 50,
-                        message: "First name must be within 50 characters.",
+                        message: t("onboarding.profile.form.first_name.max_length"),
                       },
                     }}
                     render={({ field: { value, onChange, ref } }) => (
@@ -319,7 +326,7 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                         onChange={onChange}
                         ref={ref}
                         hasError={Boolean(errors.first_name)}
-                        placeholder="Wilbur"
+                        placeholder={t("onboarding.profile.form.first_name.placeholder")}
                         className="w-full border-strong"
                         autoComplete="on"
                       />
@@ -331,20 +338,20 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                 </div>
                 <div className="space-y-1">
                   <label
-                    className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
+                    className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
                     htmlFor="last_name"
                   >
-                    Last name
+                    {t("onboarding.profile.form.last_name.label")}
                   </label>
                   <Controller
                     control={control}
                     name="last_name"
                     rules={{
-                      required: "Last name is required",
+                      required: t("onboarding.profile.form.last_name.required"),
                       validate: validatePersonName,
                       maxLength: {
                         value: 50,
-                        message: "Last name must be within 50 characters.",
+                        message: t("onboarding.profile.form.last_name.max_length"),
                       },
                     }}
                     render={({ field: { value, onChange, ref } }) => (
@@ -356,7 +363,7 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                         onChange={onChange}
                         ref={ref}
                         hasError={Boolean(errors.last_name)}
-                        placeholder="Wright"
+                        placeholder={t("onboarding.profile.form.last_name.placeholder")}
                         className="w-full border-strong"
                         autoComplete="on"
                       />
@@ -370,8 +377,8 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
               {!isPasswordAlreadySetup && (
                 <>
                   <div className="space-y-1">
-                    <label className="text-13 font-medium text-tertiary" htmlFor="password">
-                      Set a password ({t("common.optional")})
+                    <label className="text-13 text-tertiary font-medium" htmlFor="password">
+                      {t("onboarding.profile.form.password.title")} ({t("common.optional")})
                     </label>
                     <Controller
                       control={control}
@@ -388,7 +395,7 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                             onChange={onChange}
                             ref={ref}
                             hasError={Boolean(errors.password)}
-                            placeholder="New password..."
+                            placeholder={t("onboarding.profile.form.password.placeholder")}
                             className="w-full border-[0.5px] border-subtle pr-12 placeholder:text-placeholder"
                             onFocus={() => setIsPasswordInputFocused(true)}
                             onBlur={() => setIsPasswordInputFocused(false)}
@@ -411,7 +418,7 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                     <PasswordStrengthIndicator password={watch("password") ?? ""} isFocused={isPasswordInputFocused} />
                   </div>
                   <div className="space-y-1">
-                    <label className="text-13 font-medium text-tertiary" htmlFor="confirm_password">
+                    <label className="text-13 text-tertiary font-medium" htmlFor="confirm_password">
                       {t("auth.common.password.confirm_password.label")} ({t("common.optional")})
                     </label>
                     <Controller
@@ -420,7 +427,11 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
                       rules={{
                         required: watch("password") ? true : false,
                         validate: (value) =>
-                          watch("password") ? (value === watch("password") ? true : "Passwords don't match") : true,
+                          watch("password")
+                            ? value === watch("password")
+                              ? true
+                              : t("auth.common.password.errors.match")
+                            : true,
                       }}
                       render={({ field: { value, onChange, ref } }) => (
                         <div className="relative flex items-center rounded-md">
@@ -463,32 +474,32 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
             <>
               <div className="space-y-1">
                 <label
-                  className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
+                  className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
                   htmlFor="role"
                 >
-                  What role are you working on? Choose one.
+                  {t("onboarding.profile.form.role.label")}
                 </label>
                 <Controller
                   control={control}
                   name="role"
                   rules={{
-                    required: "This field is required",
+                    required: t("onboarding.profile.form.role.required"),
                   }}
                   render={({ field: { value, onChange } }) => (
-                    <div className="flex flex-wrap gap-2 overflow-auto py-2 break-all">
+                    <div className="flex flex-wrap gap-2 py-2 overflow-auto break-all">
                       {USER_ROLE.map((userRole) => (
                         <div
-                          key={userRole}
+                          key={userRole.key}
                           className={cn(
-                            "shrink-0 rounded border-[0.5px] px-3 py-1.5 text-13 font-medium hover:cursor-pointer hover:bg-surface-2",
+                            "shrink-0 border-[0.5px] hover:cursor-pointer hover:bg-surface-2 rounded px-3 py-1.5 text-13 font-medium",
                             {
-                              "border-accent-strong": value === userRole,
-                              "border-strong": value !== userRole,
+                              "border-accent-strong": value === userRole.label,
+                              "border-strong": value !== userRole.label,
                             }
                           )}
-                          onClick={() => onChange(userRole)}
+                          onClick={() => onChange(userRole.label)}
                         >
-                          {userRole}
+                          {t(`onboarding.profile.form.roles.${userRole.key}`)}
                         </div>
                       ))}
                     </div>
@@ -498,38 +509,38 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
               </div>
               <div className="space-y-1">
                 <label
-                  className="text-13 font-medium text-tertiary after:ml-0.5 after:text-danger-primary after:content-['*']"
+                  className="text-13 text-tertiary font-medium after:content-['*'] after:ml-0.5 after:text-danger-primary"
                   htmlFor="use_case"
                 >
-                  What is your domain expertise? Choose one or more.
+                  {t("onboarding.profile.form.domain.label")}
                 </label>
                 <Controller
                   control={control}
                   name="use_case"
                   rules={{
-                    required: "Please select at least one option",
-                    validate: (value) => (value && value.length > 0) || "Please select at least one option",
+                    required: t("onboarding.profile.form.domain.required"),
+                    validate: (value) => (value && value.length > 0) || t("onboarding.profile.form.domain.required"),
                   }}
                   render={({ field: { value, onChange } }) => (
-                    <div className="flex flex-wrap gap-2 overflow-auto py-2 break-all">
+                    <div className="flex flex-wrap gap-2 py-2 overflow-auto break-all">
                       {USER_DOMAIN.map((userDomain) => {
-                        const isSelected = value?.includes(userDomain) || false;
+                        const isSelected = value?.includes(userDomain.label) || false;
                         return (
                           <div
-                            key={userDomain}
+                            key={userDomain.key}
                             className={`flex-shrink-0 border-[0.5px] hover:cursor-pointer hover:bg-surface-2 ${
                               isSelected ? "border-accent-strong" : "border-strong"
                             } rounded px-3 py-1.5 text-13 font-medium`}
                             onClick={() => {
                               const currentValue = value || [];
                               if (isSelected) {
-                                onChange(currentValue.filter((item) => item !== userDomain));
+                                onChange(currentValue.filter((item) => item !== userDomain.label));
                               } else {
-                                onChange([...currentValue, userDomain]);
+                                onChange([...currentValue, userDomain.label]);
                               }
                             }}
                           >
-                            {userDomain}
+                            {t(`onboarding.profile.form.domains.${userDomain.key}`)}
                           </div>
                         );
                       })}
@@ -541,7 +552,7 @@ export const ProfileSetup = observer(function ProfileSetup(props: Props) {
             </>
           )}
           <Button variant="primary" type="submit" size="xl" className="w-full" disabled={isButtonDisabled}>
-            {isSubmitting ? <Spinner height="20px" width="20px" /> : "Continue"}
+            {isSubmitting ? <Spinner height="20px" width="20px" /> : t("onboarding.continue")}
           </Button>
         </form>
       </div>

@@ -47,7 +47,9 @@ export const DeleteWorkspaceForm = observer(function DeleteWorkspaceForm(props: 
     watch,
   } = useForm({ defaultValues });
 
-  const canDelete = watch("workspaceName") === data?.name && watch("confirmDelete") === "delete my workspace";
+  const canDelete =
+    watch("workspaceName") === data?.name &&
+    watch("confirmDelete") === t("workspace_settings.settings.general.delete_modal.confirmation_phrase");
 
   const handleClose = () => {
     const timer = setTimeout(() => {
@@ -94,14 +96,14 @@ export const DeleteWorkspaceForm = observer(function DeleteWorkspaceForm(props: 
           <div className="text-center sm:text-left">
             <h3 className="text-h5-medium">{t("workspace_settings.settings.general.delete_modal.title")}</h3>
             <p className="mt-1 text-body-xs-regular text-secondary">
-              You are about to delete the workspace{" "}
-              <span className="text-body-xs-semibold break-words">{data?.name}</span>. If you confirm, you will lose
-              access to all your work data in this workspace without any way to restore it. Tread very carefully.
+              {t("workspace_settings.settings.general.delete_modal.description", { name: data?.name })}
             </p>
           </div>
 
-          <div className="mt-4 text-secondary">
-            <p className="text-body-xs-regular break-words">Type in this workspace&apos;s name to continue.</p>
+          <div className="text-secondary mt-4">
+            <p className="break-words text-body-xs-regular ">
+              {t("workspace_settings.settings.general.delete_modal.type_workspace_name")}
+            </p>
             <Controller
               control={control}
               name="workspaceName"
@@ -124,9 +126,11 @@ export const DeleteWorkspaceForm = observer(function DeleteWorkspaceForm(props: 
 
           <div className="mt-4 text-secondary">
             <p className="text-body-xs-regular">
-              For final confirmation, type{" "}
-              <span className="text-body-xs-medium text-primary">delete my workspace </span>
-              below.
+              {t("workspace_settings.settings.general.delete_modal.final_confirmation_prefix")}{" "}
+              <span className="text-body-xs-medium text-primary">
+                {t("workspace_settings.settings.general.delete_modal.confirmation_phrase")}{" "}
+              </span>
+              {t("workspace_settings.settings.general.delete_modal.final_confirmation_suffix")}
             </p>
             <Controller
               control={control}

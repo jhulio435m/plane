@@ -9,6 +9,7 @@ import { observer } from "mobx-react";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 // plane imports
+import { useTranslation } from "@plane/i18n";
 import { PriorityIcon } from "@plane/propel/icons";
 import { Tooltip } from "@plane/propel/tooltip";
 import { Row, Avatar } from "@plane/ui";
@@ -35,6 +36,7 @@ type InboxIssueListItemProps = {
 
 export const InboxIssueListItem = observer(function InboxIssueListItem(props: InboxIssueListItemProps) {
   const { workspaceSlug, projectId, inboxIssueId, projectIdentifier, setIsMobileSidebar } = props;
+  const { t } = useTranslation();
   // router
   const searchParams = useSearchParams();
   const selectedInboxIssueId = searchParams.get("inboxIssueId");
@@ -85,7 +87,7 @@ export const InboxIssueListItem = observer(function InboxIssueListItem(props: In
           <div className="flex items-center justify-between">
             <div className="flex flex-wrap items-center gap-2">
               <Tooltip
-                tooltipHeading="Created on"
+                tooltipHeading={t("project_issues.created_on")}
                 tooltipContent={`${renderFormattedDate(issue.created_at ?? "")}`}
                 isMobile={isMobile}
               >
@@ -95,15 +97,17 @@ export const InboxIssueListItem = observer(function InboxIssueListItem(props: In
               <div className="rounded-full border-2 border-strong-1" />
 
               {issue.priority && (
-                <Tooltip tooltipHeading="Priority" tooltipContent={`${issue.priority ?? "None"}`}>
-                  <PriorityIcon priority={issue.priority} withContainer className="h-3 w-3" />
+                <Tooltip tooltipHeading={t("priority")} tooltipContent={`${issue.priority ?? t("none")}`}>
+                  <PriorityIcon priority={issue.priority} withContainer className="w-3 h-3" />
                 </Tooltip>
               )}
 
               {issue.label_ids && issue.label_ids.length > 3 ? (
-                <div className="relative flex !h-[17.5px] items-center gap-1 rounded-sm border border-strong px-1 text-11">
-                  <span className="bg-orange-400 h-2 w-2 rounded-full" />
-                  <span className="max-w-28 truncate normal-case">{`${issue.label_ids.length} labels`}</span>
+                <div className="relative !h-[17.5px] flex items-center gap-1 rounded-sm border border-strong px-1 text-11">
+                  <span className="h-2 w-2 rounded-full bg-orange-400" />
+                  <span className="normal-case max-w-28 truncate">
+                    {`${issue.label_ids.length} ${t("labels").toLowerCase()}`}
+                  </span>
                 </div>
               ) : (
                 <>

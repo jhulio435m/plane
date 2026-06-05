@@ -7,6 +7,7 @@
 import React, { useMemo, useState } from "react";
 import { sortBy } from "lodash-es";
 import { observer } from "mobx-react";
+import { useTranslation } from "@plane/i18n";
 // ui
 import { Logo } from "@plane/propel/emoji-icon-picker";
 import { Loader } from "@plane/ui";
@@ -23,6 +24,7 @@ type Props = {
 
 export const FilterProjects = observer(function FilterProjects(props: Props) {
   const { appliedFilters, handleUpdate, searchQuery } = props;
+  const { t } = useTranslation();
   // states
   const [itemsToRender, setItemsToRender] = useState(5);
   const [previewEnabled, setPreviewEnabled] = useState(true);
@@ -53,7 +55,7 @@ export const FilterProjects = observer(function FilterProjects(props: Props) {
   return (
     <>
       <FilterHeader
-        title={`Project${appliedFiltersCount > 0 ? ` (${appliedFiltersCount})` : ""}`}
+        title={`${t("common.project")}${appliedFiltersCount > 0 ? ` (${appliedFiltersCount})` : ""}`}
         isPreviewEnabled={previewEnabled}
         handleIsPreviewEnabled={() => setPreviewEnabled(!previewEnabled)}
       />
@@ -68,7 +70,7 @@ export const FilterProjects = observer(function FilterProjects(props: Props) {
                     isChecked={appliedFilters?.includes(project.id) ? true : false}
                     onClick={() => handleUpdate(project.id)}
                     icon={
-                      <span className="grid h-4 w-4 flex-shrink-0 place-items-center">
+                      <span className="grid place-items-center flex-shrink-0 h-4 w-4">
                         <Logo logo={project.logo_props} size={12} />
                       </span>
                     }
@@ -81,12 +83,12 @@ export const FilterProjects = observer(function FilterProjects(props: Props) {
                     className="ml-8 text-11 font-medium text-accent-primary"
                     onClick={handleViewToggle}
                   >
-                    {itemsToRender === sortedOptions.length ? "View less" : "View all"}
+                    {itemsToRender === sortedOptions.length ? t("show_less") : t("show_all")}
                   </button>
                 )}
               </>
             ) : (
-              <p className="text-11 text-placeholder italic">No matches found</p>
+              <p className="text-11 italic text-placeholder">{t("command_palette.search.no_matches_found")}</p>
             )
           ) : (
             <Loader className="space-y-2">

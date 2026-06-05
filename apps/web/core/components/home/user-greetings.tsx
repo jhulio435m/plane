@@ -20,30 +20,37 @@ export function UserGreetingsView(props: IUserGreetingsView) {
   // current time hook
   const { currentTime } = useCurrentTime();
   // store hooks
-  const { t } = useTranslation();
+  const { t, currentLocale } = useTranslation();
+  const browserTimeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  const userTimeZone = user?.user_timezone;
+  const effectiveTimeZone = userTimeZone && userTimeZone !== "UTC" ? userTimeZone : browserTimeZone;
 
-  const hour = new Intl.DateTimeFormat("en-US", {
+  const hour = new Intl.DateTimeFormat(currentLocale, {
     hour12: false,
     hour: "numeric",
+    timeZone: effectiveTimeZone,
   }).format(currentTime);
 
-  const date = new Intl.DateTimeFormat("en-US", {
+  const date = new Intl.DateTimeFormat(currentLocale, {
     month: "short",
     day: "numeric",
+    timeZone: effectiveTimeZone,
   }).format(currentTime);
 
-  const weekDay = new Intl.DateTimeFormat("en-US", {
+  const weekDay = new Intl.DateTimeFormat(currentLocale, {
     weekday: "long",
+    timeZone: effectiveTimeZone,
   }).format(currentTime);
 
-  const timeString = new Intl.DateTimeFormat("en-US", {
-    timeZone: user?.user_timezone,
+  const timeString = new Intl.DateTimeFormat(currentLocale, {
+    timeZone: effectiveTimeZone,
     hour12: false, // Use 24-hour format
     hour: "2-digit",
     minute: "2-digit",
   }).format(currentTime);
 
   const greeting = parseInt(hour, 10) < 12 ? "morning" : parseInt(hour, 10) < 18 ? "afternoon" : "evening";
+  const salutation = currentLocale.startsWith("es") ? t(`good_${greeting}`) : `${t("good")} ${t(greeting)}`;
 
   return (
     <div className="my-6 flex flex-col items-center">

@@ -7,6 +7,7 @@
 import { useState } from "react";
 // plane imports
 import { ROLE } from "@plane/constants";
+import { useTranslation } from "@plane/i18n";
 // types
 import { Button } from "@plane/propel/button";
 import type { IWorkspaceMemberInvitation } from "@plane/types";
@@ -31,6 +32,7 @@ const workspaceService = new WorkspaceService();
 
 export function Invitations(props: Props) {
   const { invitations, handleNextStep, handleCurrentViewChange } = props;
+  const { t } = useTranslation();
   // states
   const [isJoiningWorkspaces, setIsJoiningWorkspaces] = useState(false);
   const [invitationsRespond, setInvitationsRespond] = useState<string[]>([]);
@@ -63,9 +65,9 @@ export function Invitations(props: Props) {
 
   return invitations && invitations.length > 0 ? (
     <div className="space-y-4">
-      <div className="mx-auto space-y-1 py-4 text-center">
-        <h3 className="text-24 font-bold text-primary">You are invited!</h3>
-        <p className="font-medium text-placeholder">Accept the invites to collaborate with your team.</p>
+      <div className="text-center space-y-1 py-4 mx-auto">
+        <h3 className="text-24 font-bold text-primary">{t("onboarding.invitations.title")}</h3>
+        <p className="font-medium text-placeholder">{t("onboarding.invitations.description")}</p>
       </div>
       <div>
         {invitations &&
@@ -76,7 +78,7 @@ export function Invitations(props: Props) {
             return (
               <div
                 key={invitation.id}
-                className={`flex cursor-pointer items-center gap-2 rounded-sm border border-subtle p-3.5 hover:bg-surface-2`}
+                className={`flex cursor-pointer items-center gap-2 rounded-sm border p-3.5 border-subtle hover:bg-surface-2`}
                 onClick={() => handleInvitation(invitation, isSelected ? "withdraw" : "accepted")}
               >
                 <div className="flex-shrink-0">
@@ -104,24 +106,24 @@ export function Invitations(props: Props) {
         onClick={submitInvitations}
         disabled={isJoiningWorkspaces || !invitationsRespond.length}
       >
-        {isJoiningWorkspaces ? <Spinner height="20px" width="20px" /> : "Continue to workspace"}
+        {isJoiningWorkspaces ? <Spinner height="20px" width="20px" /> : t("onboarding.invitations.continue_button")}
       </Button>
       <div className="mx-auto mt-4 flex items-center sm:w-96">
         <hr className="w-full border-strong" />
-        <p className="mx-3 flex-shrink-0 text-center text-13 text-placeholder">or</p>
+        <p className="mx-3 flex-shrink-0 text-center text-13 text-placeholder">{t("onboarding.invitations.or")}</p>
         <hr className="w-full border-strong" />
       </div>
       <Button
         variant="ghost"
         size="xl"
-        className="w-full bg-surface-2 text-14"
+        className="w-full text-14 bg-surface-2"
         onClick={handleCurrentViewChange}
         disabled={isJoiningWorkspaces}
       >
-        Create your own workspace
+        {t("onboarding.invitations.create_workspace")}
       </Button>
     </div>
   ) : (
-    <div>No Invitations found</div>
+    <div>{t("onboarding.invitations.no_invitations")}</div>
   );
 }

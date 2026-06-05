@@ -179,19 +179,18 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
 
   return (
     <ModalCore isOpen={isOpen} handleClose={onClose} position={EModalPosition.CENTER} width={EModalWidth.XXL}>
-      <div className="flex max-h-[90vh] flex-col rounded-lg bg-surface-1">
+      <div className="flex flex-col max-h-[90vh] bg-surface-1 rounded-lg">
         {/* Header */}
         <div className="flex justify-between px-6 pt-4">
           <div>
             <h2 className="text-18 font-semibold text-primary">{t("customize_navigation")}</h2>
             <p className="mt-1 text-13 text-tertiary">
-              Selected items will always stay visible in your sidebar. You can still find the others anytime from the
-              More menu. These changes are personal to you and won&apos;t affect anyone else on your workspace.
+              {t("common.customize_navigation_description")}
             </p>
           </div>
           <button
             onClick={onClose}
-            className="flex size-5 flex-shrink-0 items-center justify-center rounded-sm text-placeholder hover:bg-layer-1"
+            className="flex-shrink-0 size-5 flex items-center justify-center rounded-sm hover:bg-layer-1 text-placeholder"
             aria-label={t("close")}
           >
             <X className="size-4" />
@@ -199,26 +198,26 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
         </div>
 
         {/* Content */}
-        <div className="flex-1 space-y-4 overflow-y-auto px-6 py-4">
+        <div className="flex-1 overflow-y-auto px-6 py-4 space-y-4">
           {/* Personal Section */}
           <div className="flex flex-col gap-2">
             <h3 className="text-13 font-semibold text-placeholder">{t("personal")}</h3>
-            <div className="rounded-md border border-subtle bg-surface-2 py-2">
+            <div className="border border-subtle rounded-md py-2 bg-surface-2">
               <Sortable
                 data={personalItems}
                 onChange={handlePersonalReorder}
                 keyExtractor={(item) => item.key}
                 id="personal-enabled-items"
                 render={(item) => (
-                  <div className="flex items-center gap-2 rounded-md px-2 py-1.5 transition-all duration-200 hover:bg-surface-2">
-                    <GripVertical className="size-4 cursor-grab text-placeholder transition-colors active:cursor-grabbing" />
+                  <div className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-surface-2 transition-all duration-200">
+                    <GripVertical className="size-4 text-placeholder cursor-grab active:cursor-grabbing transition-colors" />
                     <Checkbox
                       checked={!!personalPreferences.items[item.key]?.enabled}
                       onChange={(e) => togglePersonalItem(item.key, e.target.checked)}
                     />
-                    <div className="flex flex-1 items-center gap-2">
+                    <div className="flex items-center gap-2 flex-1">
                       {getSidebarNavigationItemIcon(item.key)}
-                      <label className="flex-1 cursor-pointer text-13 text-primary">
+                      <label className="text-13 text-primary flex-1 cursor-pointer">
                         {t(item.labelTranslationKey)}
                       </label>
                     </div>
@@ -241,13 +240,13 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
                 render={(item) => {
                   const icon = getSidebarNavigationItemIcon(item.key);
                   return (
-                    <div className="group flex items-center gap-2 rounded-md px-2 py-1.5 transition-all duration-200 hover:bg-surface-2">
-                      <GripVertical className="size-4 cursor-grab text-placeholder transition-colors active:cursor-grabbing" />
+                    <div className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-surface-2 group transition-all duration-200">
+                      <GripVertical className="size-4 text-placeholder cursor-grab active:cursor-grabbing transition-colors" />
                       <Checkbox
                         checked={!!workspacePreferences.items[item.key]?.is_pinned}
                         onChange={(e) => handleWorkspaceItemToggle(item.key, e.target.checked)}
                       />
-                      <div className="flex flex-1 items-center gap-2">
+                      <div className="flex items-center gap-2 flex-1">
                         {icon}
                         <span className="text-13 text-primary">{t(item.labelTranslationKey)}</span>
                       </div>
@@ -262,40 +261,40 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
           <div className="flex flex-col gap-2">
             <h3 className="text-13 font-semibold text-placeholder">{t("projects")}</h3>
 
-            <div className="rounded-md border border-subtle bg-surface-2 px-2 py-2">
+            <div className="border border-subtle rounded-md px-2 py-2 bg-surface-2">
               <div className="space-y-3">
                 {/* Navigation Mode Radio Buttons */}
                 <div className="space-y-2">
-                  <label className="flex cursor-pointer gap-2 rounded-md px-2 py-1.5 hover:bg-surface-2">
+                  <label className="flex gap-2 px-2 py-1.5 rounded-md hover:bg-surface-2 cursor-pointer">
                     <input
                       type="radio"
                       name="navigation-mode"
                       value="ACCORDION"
                       checked={projectPreferences.navigationMode === "ACCORDION"}
                       onChange={() => updateNavigationMode("ACCORDION")}
-                      className="mt-1 size-4 text-accent-primary focus:ring-accent-strong"
+                      className="size-4 text-accent-primary focus:ring-accent-strong mt-1"
                     />
                     <div className="flex-1">
                       <div className="text-13 text-primary">{t("accordion_navigation_control")}</div>
                       <div className="text-11 text-secondary">
-                        Feature tabs will appear as nested items under project and acts as accordion.
+                        {t("common.accordion_navigation_description")}
                       </div>
                     </div>
                   </label>
 
-                  <label className="flex cursor-pointer gap-2 rounded-md px-2 py-1.5 hover:bg-surface-2">
+                  <label className="flex gap-2 px-2 py-1.5 rounded-md hover:bg-surface-2 cursor-pointer">
                     <input
                       type="radio"
                       name="navigation-mode"
                       value="TABBED"
                       checked={projectPreferences.navigationMode === "TABBED"}
                       onChange={() => updateNavigationMode("TABBED")}
-                      className="mt-1 size-4 text-accent-primary focus:ring-accent-strong"
+                      className="size-4 text-accent-primary focus:ring-accent-strong mt-1"
                     />
                     <div className="flex-1">
                       <div className="text-13 text-primary">{t("horizontal_navigation_bar")}</div>
                       <div className="text-11 text-secondary">
-                        Feature tabs will appear as horizontal tabs inside a project.
+                        {t("common.horizontal_navigation_description")}
                       </div>
                     </div>
                   </label>
@@ -303,7 +302,7 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
 
                 {/* Limited Projects Checkbox */}
                 <div className="space-y-1">
-                  <label className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-1.5 hover:bg-surface-2">
+                  <label className="flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-surface-2 cursor-pointer">
                     <Checkbox
                       checked={projectPreferences.showLimitedProjects}
                       onChange={(e) => updateShowLimitedProjects(e.target.checked)}
@@ -313,9 +312,9 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
 
                   {projectPreferences.showLimitedProjects && (
                     <div className="pl-8">
-                      <div className="flex w-full flex-col gap-1">
-                        <div className="flex w-full flex-col gap-2 pb-1.5">
-                          <label className="w-full text-11 text-secondary">{t("enter_number_of_projects")}</label>
+                      <div className="flex flex-col gap-1 w-full">
+                        <div className="flex flex-col gap-2 w-full pb-1.5">
+                          <label className="text-11 text-secondary w-full">{t("enter_number_of_projects")}</label>
                           <input
                             type="number"
                             min="1"
@@ -324,8 +323,8 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
                             onKeyDown={handleKeyDown}
                             onChange={(e) => handleProjectCountChange(e.target.value)}
                             className={cn(
-                              "w-full rounded-md px-2 py-1 text-13",
-                              "border bg-surface-2",
+                              "w-full px-2 py-1 text-13 rounded-md",
+                              "bg-surface-2 border",
                               "text-secondary",
                               parseInt(projectCountInput) >= 1
                                 ? "border-strong focus:border-accent-strong focus:ring-1 focus:ring-accent-strong"
@@ -334,7 +333,7 @@ export const CustomizeNavigationDialog = observer(function CustomizeNavigationDi
                           />
                         </div>
                         {parseInt(projectCountInput) < 1 && projectCountInput !== "" && (
-                          <span className="pl-0.5 text-11 text-danger-primary">Minimum value is 1</span>
+                          <span className="text-11 text-danger-primary pl-0.5">{t("common.min_value_1_error")}</span>
                         )}
                       </div>
                     </div>

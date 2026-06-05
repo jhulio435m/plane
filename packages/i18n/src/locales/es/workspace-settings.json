@@ -504,5 +504,11 @@
         "description": "Encuentra todas tus importaciones anteriores aquí y descárgalas."
       }
     }
+  },
+  "workspace_member_modals": {
+    "leave_title": "¿Abandonar espacio de trabajo?",
+    "leave_description": "¿Estás seguro de que quieres abandonar el espacio de trabajo {name}?",
+    "remove_title": "¿Eliminar miembro?",
+    "remove_description": "¿Estás seguro de que quieres eliminar a {name}? Ya no tendrá acceso a este espacio de trabajo."
   }
 }

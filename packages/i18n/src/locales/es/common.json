@@ -211,6 +211,8 @@
   "drag_to_rearrange": "Arrastra para reorganizar",
   "congrats": "¡Felicitaciones!",
   "open_project": "Abrir proyecto",
+  "more": "más",
+  "hide": "ocultar",
   "issues": "Elementos de trabajo",
   "cycles": "Ciclos",
   "modules": "Módulos",
@@ -448,6 +450,12 @@
     "completed_at": "Completado en",
     "layout": "Diseño",
     "filters": "Filtros",
+    "filter_options_selected": "{count} opción(es) seleccionada(s)",
+    "filter_operator": {
+      "is": "es",
+      "is_any_of": "es cualquiera de",
+      "between": "entre"
+    },
     "display": "Mostrar",
     "load_more": "Cargar más",
     "activity": "Actividad",
