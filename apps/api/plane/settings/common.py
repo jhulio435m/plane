@@ -228,7 +228,7 @@ USE_L10N = True
 
 # Timezones
 USE_TZ = True
-TIME_ZONE = "UTC"
+TIME_ZONE = os.environ.get("TIME_ZONE", "America/Lima")
 
 # Default Auto Field
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"

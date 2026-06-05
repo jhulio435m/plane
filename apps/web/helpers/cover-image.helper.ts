@@ -272,8 +272,7 @@ export const handleCoverImageChange = async (
   }
 
   if (analysis.needsUpload) {
-<<<<<<< HEAD
-    const uploadedUrl = await uploadCoverImage(newImage, uploadConfig);
+    await uploadCoverImage(newImage, uploadConfig);
 
     // For BOTH user assets AND project assets:
     // The backend auto-links when entity_identifier is set correctly
@@ -297,13 +296,6 @@ export const handleCoverImageChange = async (
   return {
     cover_image: newImage,
   };
-=======
-    await uploadCoverImage(newImage, uploadConfig);
-    return;
-  }
-
-  return { cover_image: newImage };
->>>>>>> origin/preview
 };
 
 /**
