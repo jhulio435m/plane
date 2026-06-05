@@ -125,9 +125,9 @@ export const ModuleAnalyticsProgress = observer(function ModuleAnalyticsProgress
           <div className="space-y-6">
             {/* progress bar header */}
             {isModuleDateValid ? (
-              <div className="relative w-full flex justify-between items-center gap-2">
-                <Disclosure.Button className="relative flex items-center gap-2 w-full">
-                  <div className="font-medium text-secondary text-13">{t("progress")}</div>
+              <div className="relative flex w-full items-center justify-between gap-2">
+                <Disclosure.Button className="relative flex w-full items-center gap-2">
+                  <div className="text-13 font-medium text-secondary">{t("common.progress")}</div>
                   {progressHeaderPercentage > 0 && (
                     <div className="flex h-5 w-9 items-center justify-center rounded-sm bg-amber-500/20 text-11 font-medium text-amber-500">{`${progressHeaderPercentage}%`}</div>
                   )}

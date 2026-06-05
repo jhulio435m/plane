@@ -17,8 +17,6 @@ import { Input, ToggleSwitch } from "@plane/ui";
 import { ControllerInput } from "@/components/common/controller-input";
 // hooks
 import { useInstance } from "@/hooks/store";
-// components
-import { IntercomConfig } from "./intercom";
 
 export interface IGeneralConfigurationForm {
   instance: IInstance;
@@ -29,14 +27,13 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
   const { instance, instanceAdmins } = props;
   // hooks
   const { t } = useTranslation();
-  const { instanceConfigurations, updateInstanceInfo, updateInstanceConfigurations } = useInstance();
+  const { updateInstanceInfo } = useInstance();
 
   // form data
   const {
     handleSubmit,
     control,
     formState: { errors, isSubmitting },
-    watch,
   } = useForm<Partial<IInstance>>({
     defaultValues: {
       instance_name: instance?.instance_name,
@@ -46,17 +43,6 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
 
   const onSubmit = async (formData: Partial<IInstance>) => {
     const payload: Partial<IInstance> = { ...formData };
-
-    // update the intercom configuration
-    const isIntercomEnabled =
-      instanceConfigurations?.find((config) => config.key === "IS_INTERCOM_ENABLED")?.value === "1";
-    if (!payload.is_telemetry_enabled && isIntercomEnabled) {
-      try {
-        await updateInstanceConfigurations({ IS_INTERCOM_ENABLED: "0" });
-      } catch (error) {
-        console.error(error);
-      }
-    }
 
     await updateInstanceInfo(payload)
       .then(() =>
@@ -114,10 +100,7 @@ export const GeneralConfigurationForm = observer(function GeneralConfigurationFo
       </div>
 
       <div className="space-y-6">
-        <div className="text-16 font-medium text-primary pb-1.5 border-b border-subtle">
-          {t("admin.chat_telemetry_title")}
-        </div>
-        <IntercomConfig isTelemetryEnabled={watch("is_telemetry_enabled") ?? false} />
+        <div className="border-b border-subtle pb-1.5 text-16 font-medium text-primary">Telemetry</div>
         <div className="flex items-center gap-14">
           <div className="flex grow items-center gap-4">
             <div className="shrink-0">
