@@ -504,5 +504,11 @@
         "description": "Find all your previous imports here and download them."
       }
     }
+  },
+  "workspace_member_modals": {
+    "leave_title": "Leave workspace?",
+    "leave_description": "Are you sure you want to leave the workspace {name}?",
+    "remove_title": "Remove member?",
+    "remove_description": "Are you sure you want to remove {name}? They will no longer have access to this workspace."
   }
 }

@@ -508,7 +508,7 @@
   "workspace_member_modals": {
     "leave_title": "¿Abandonar espacio de trabajo?",
     "leave_description": "¿Estás seguro de que quieres abandonar el espacio de trabajo {name}?",
-    "remove_member_title": "¿Eliminar miembro?",
-    "remove_member_description": "¿Estás seguro de que quieres eliminar al miembro {name}? Ya no tendrá acceso a este espacio de trabajo."
+    "remove_title": "¿Eliminar miembro?",
+    "remove_description": "¿Estás seguro de que quieres eliminar a {name}? Ya no tendrá acceso a este espacio de trabajo."
   }
 }
